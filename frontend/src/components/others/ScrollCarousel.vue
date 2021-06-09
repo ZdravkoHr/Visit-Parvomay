@@ -22,7 +22,8 @@ export default {
             contentEl: null,
             items: null,
             scrollValue: 0,
-            activeIndex: -1
+            activeIndex: -1,
+            lastBoxWidth: 160
         };
     },
 
@@ -30,8 +31,7 @@ export default {
         initVars() {
             this.contentEl = this.$refs.content;
             this.items = this.contentEl.children;
-            this.activeIndex = 2;
-            // this.activeIndex = Math.floor(this.items.length / 2);
+            this.activeIndex = this.items.length > 2 ? 2 : this.items.length;
         },
         updateScrollValue(event) {
             const scrollValue = event.target.scrollLeft;
@@ -42,15 +42,28 @@ export default {
                 .offsetLeft;
 
             setTimeout(() => this.contentEl.scroll(scrollX, 0));
+        },
+        addScrollWidth() {
+            const additionalWidth = Math.max(
+                (this.itemsCount - 2) * this.itemWidth -
+                    this.contentEl.scrollLeftMax,
+                0
+            );
+
+            this.lastBoxWidth = additionalWidth;
         }
     },
 
     computed: {
         contentStyles() {
-            const count = (this.items || []).length;
             return {
-                gridTemplateColumns: `repeat(${count + 2}, ${this.itemWidth}px)`
+                gridTemplateColumns: `repeat(${this.itemsCount - 1}, ${
+                    this.itemWidth
+                }px) ${this.lastBoxWidth}px`
             };
+        },
+        itemsCount() {
+            return (this.items || []).length;
         },
         activeElement() {
             return this.items[this.activeIndex];
@@ -59,8 +72,10 @@ export default {
 
     mounted() {
         this.initVars();
-        this.scroll();
-        //  this.activeElement.style.transform = "scale(1)";
+        this.$nextTick(() => {
+            this.addScrollWidth();
+            this.scroll();
+        });
     },
 
     watch: {
@@ -68,29 +83,6 @@ export default {
             this.items.forEach(item => item.classList.remove("active"));
             this.items[newValue].classList.add("active");
         }
-        // scrollValue(newValue) {
-        //     const percentsAway = Math.min(
-        //         (newValue /
-        //             (this.activeElement.offsetLeft -
-        //                 (this.activeElement.previousElementSibling
-        //                     ?.offsetLeft || 0))) *
-        //             100,
-        //         100
-        //     );
-
-        //     console.log(this.activeElement.previousElementSibling.offsetLeft);
-
-        //     const scaleChange = (percentsAway / 100) * 0.4;
-        //     const decreasedScale = 1 - scaleChange;
-        //     const increasedScale = 0.6 + scaleChange;
-
-        //     this.activeElement.style.transform = `scale(${decreasedScale})`;
-        //     this.activeElement.nextElementSibling.style.transform = `scale(${increasedScale})`;
-
-        //     if (percentsAway === 100) {
-        //         this.activeIndex++;
-        //     }
-        // }
     }
 };
 </script>
@@ -99,10 +91,11 @@ export default {
 @use '~@/styles/partials/mixins' as *;
 
 .content {
+    @include hidden-scroll;
     position: relative;
     display: grid;
-
     overflow-x: scroll;
+    appearance: none;
 
     ::v-deep(.box) {
         position: relative;

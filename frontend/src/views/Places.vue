@@ -613,6 +613,8 @@ p {
         font-size: 1rem;
     }
     .nature-places {
+        padding-left: 0;
+        padding-right: 0;
         flex-direction: column;
     }
     .nature-places .carousel-wrapper {
