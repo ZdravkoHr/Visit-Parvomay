@@ -15,12 +15,13 @@
     </div>
 </template>
 <script>
+import debounce from "lodash/debounce";
 export default {
+    props: ["itemWidth"],
     data() {
         return {
             hasNext: true,
             currentSlide: 0,
-            itemWidth: 240,
             contentEl: null,
             items: null,
             contentWidth: null,
@@ -29,12 +30,12 @@ export default {
     },
 
     methods: {
-        prev() {
+        prev: debounce(function() {
             this.currentSlide--;
-        },
-        next() {
+        }, 200),
+        next: debounce(function() {
             this.currentSlide++;
-        },
+        }, 200),
 
         initVars() {
             this.contentEl = this.$refs.content;
@@ -45,10 +46,6 @@ export default {
                 window
                     .getComputedStyle(this.contentEl)
                     .gridColumnGap.slice(0, -2)
-            );
-
-            this.fitCount = Math.floor(
-                (this.contentWidth - 4 * this.rightSpace) / this.itemWidth
             );
         }
     },
@@ -62,14 +59,25 @@ export default {
         },
         contentStyles() {
             const count = (this.items || []).length;
+            console.log(count);
             return {
                 gridTemplateColumns: `repeat(${count}, ${this.itemWidth}px)`
             };
         },
         itemsCount() {
             return this.items?.length || 0;
+        },
+        fitCount() {
+            const boxesCount = Math.ceil(this.contentWidth / this.itemWidth);
+            const fitCount = Math.floor(
+                (this.contentWidth - (boxesCount - 1) * this.rightSpace) /
+                    this.itemWidth
+            );
+
+            return fitCount;
         }
     },
+
     watch: {
         currentSlide(newValue, prevValue) {
             const direction = newValue > prevValue ? -1 : 1;
@@ -78,19 +86,14 @@ export default {
             const itemsLeft = this.items.length - newValue;
 
             if (itemsLeft === this.fitCount && direction === -1) {
-                const totalContentWidth =
-                    (this.itemWidth + this.rightSpace) * this.items.length -
-                    this.rightSpace * 2 -
-                    this.contentWidth -
-                    margin;
-
                 const lastEl = this.contentEl.children[
                     this.contentEl.children.length - 1
                 ];
-                const lastElRight = lastEl.getBoundingClientRect().right;
+                const lastElRight =
+                    lastEl.getBoundingClientRect().right -
+                    this.contentEl.getBoundingClientRect().left;
 
-                console.log(totalContentWidth, lastElRight);
-                moveBy = totalContentWidth - lastElRight;
+                moveBy = lastElRight - this.contentEl.offsetWidth;
                 this.lastMovedBy = moveBy;
                 this.hasNext = false;
             } else {
@@ -141,7 +144,9 @@ button {
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */
 
-@media(max-width: 1150px) {
-    .content{grid-gap: 15px;}
+@media (max-width: 1150px) {
+    .content {
+        grid-gap: 15px;
+    }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <info-box>
-        Използвайте стрелките, за да разгледате всички паркове и площадки
-        на територията на община Първомай
+        Използвайте стрелките, за да разгледате всички паркове и площадки на
+        територията на община Първомай
     </info-box>
     <section class="nature-places">
         <div class="compass"></div>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="carousel-wrapper">
-            <carousel>
+            <component :is="carouselType" :itemWidth="itemWidth">
                 <template v-slot:items>
                     <place-box
                         v-for="place in carouselItems"
@@ -23,7 +23,7 @@
                     >
                     </place-box
                 ></template>
-            </carousel>
+            </component>
         </div>
     </section>
     <info-box>
@@ -33,8 +33,7 @@
         <div class="landmark"></div>
         <div class="landmark"></div>
         <h2>
-            Забележителностите на
-            общината:
+            Забележителностите на общината:
         </h2>
 
         <div class="items" :style="rowStyles" :ref="items">
@@ -70,6 +69,7 @@
 import InfoBox from "@/components/others/InfoBox";
 import PlaceBox from "@/components/places/PlaceBox";
 import Carousel from "@/components/others/Carousel";
+import ScrollCarousel from "@/components/others/ScrollCarousel";
 import PlaceInfobox from "../components/places/PlaceInfobox.vue";
 export default {
     data() {
@@ -356,6 +356,21 @@ export default {
         isActive() {
             const activeIndex = this.activeIndex;
             return id => ({ active: id === activeIndex });
+        },
+        vw() {
+            return document.documentElement.offsetWidth;
+        },
+        carouselType() {
+            return this.vw > 650 ? "carousel" : "scrollCarousel";
+        },
+        itemWidth() {
+            const vw = document.documentElement.clientWidth;
+
+            if (vw > 1150) {
+                return 240;
+            }
+
+            return 160;
         }
     },
 
@@ -363,6 +378,7 @@ export default {
         InfoBox,
         PlaceBox,
         Carousel,
+        ScrollCarousel,
         PlaceInfobox
     }
 };
@@ -425,19 +441,23 @@ export default {
     padding: 3% 0;
     position: relative;
     overflow: hidden;
-    h2 {width: 60%;}
+    h2 {
+        width: 60%;
+    }
     .landmark {
         position: absolute;
         height: 50%;
         &:first-child {
-            background: url("../assets/vectors/landmark1.svg") no-repeat center center;
+            background: url("../assets/vectors/landmark1.svg") no-repeat center
+                center;
             left: -13%;
             top: -8%;
             width: 30%;
             opacity: 0.1;
         }
         &:nth-child(2) {
-            background: url("../assets/vectors/landmark2.svg") no-repeat center center;
+            background: url("../assets/vectors/landmark2.svg") no-repeat center
+                center;
             right: -8%;
             bottom: -10%;
             width: 29%;
@@ -445,7 +465,6 @@ export default {
             opacity: 0.1;
         }
     }
-    
 }
 
 h2 {
@@ -455,7 +474,6 @@ h2 {
     letter-spacing: 4px;
     margin: 0 auto 3%;
 }
-
 
 p {
     font-size: 1.3rem;
@@ -537,38 +555,80 @@ p {
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */
 
-@media(max-width: 1150px) {
-    .nature-places{
+@media (max-width: 1150px) {
+    .nature-places {
         padding: 1.5rem 2rem;
-        .info{max-width: 40%;}
+        .info {
+            max-width: 40%;
+        }
         .carousel-wrapper {
             max-width: 60%;
         }
-        .compass{width:55%; height:110%; top: -18%;}
+        .compass {
+            width: 55%;
+            height: 110%;
+            top: -18%;
+        }
     }
-    h2 {font-size: 2.2rem;}
-    p {font-size: 1.1rem;}
+    h2 {
+        font-size: 2.2rem;
+    }
+    p {
+        font-size: 1.1rem;
+    }
 }
 
-@media(max-width: 850px) {
-    h2 {font-size: 2rem;}
-    p {font-size: 1rem;}
+@media (max-width: 850px) {
+    h2 {
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1rem;
+    }
 }
 
-@media(max-width: 750px) {
-    h2 {font-size: 1.7rem;}
-    p {font-size: 0.95rem;}
-    .nature-places .carousel-wrapper {max-width: 57%;}
-    .nature-places .info {max-width: 43%;}
+@media (max-width: 750px) {
+    h2 {
+        font-size: 1.7rem;
+    }
+    p {
+        font-size: 0.95rem;
+    }
+    .nature-places .carousel-wrapper {
+        max-width: 57%;
+    }
+    .nature-places .info {
+        max-width: 43%;
+    }
 }
 
-@media(max-width: 650px) {
-    h2 {font-size: 1.7rem;}
-    .nature-places h2 {font-size: 2rem;}
-    p {font-size: 1rem;}
-    .nature-places {flex-direction: column;}
-    .nature-places .carousel-wrapper {max-width: 100%;}
-    .nature-places .info {max-width: 75%; margin: 2% auto;}
-    .nature-places .compass {height: 58%; top: -15%; right: 5%; left: unset;}
+@media (max-width: 650px) {
+    h2 {
+        font-size: 1.7rem;
+    }
+    .nature-places h2 {
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+    .nature-places {
+        padding-left: 0;
+        padding-right: 0;
+        flex-direction: column;
+    }
+    .nature-places .carousel-wrapper {
+        max-width: 100%;
+    }
+    .nature-places .info {
+        max-width: 75%;
+        margin: 2% auto;
+    }
+    .nature-places .compass {
+        height: 58%;
+        top: -15%;
+        right: 5%;
+        left: unset;
+    }
 }
 </style>

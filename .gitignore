@@ -17,6 +17,7 @@ yarn-error.log
 /frontend/.DS_Store
 /frontend/node_modules
 /frontend/dist
+/frontend/package-lock.json
 
 
 # local env files
