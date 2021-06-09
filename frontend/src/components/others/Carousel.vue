@@ -126,7 +126,7 @@ export default {
     margin: auto;
     padding: 1rem 0;
     margin-left: 0;
-    transition: 0.4s ease-in;
+    transition: margin 0.4s ease-in;
 }
 
 button {

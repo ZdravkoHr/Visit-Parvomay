@@ -74,9 +74,9 @@ import PlaceInfobox from "../components/places/PlaceInfobox.vue";
 export default {
     data() {
         return {
-            itemsPerRow: 3,
             infoBoxIndex: -1,
             activeIndex: -1,
+            vw: document.documentElement.offsetWidth,
             carouselItems: [
                 {
                     id: 0,
@@ -301,7 +301,11 @@ export default {
             const rowIndex = Math.trunc(item.id / this.itemsPerRow) + 1;
             this.activeIndex = item.id;
             this.infoBoxIndex = -1;
-            setTimeout(() => (this.infoBoxIndex = rowIndex));
+            setTimeout(() => {
+                this.infoBoxIndex = rowIndex;
+                console.log('info box index: ', this.infoBoxIndex)
+            })
+          
         },
         goBack() {
             this.activeIndex =
@@ -317,6 +321,20 @@ export default {
     },
 
     computed: {
+      
+        itemsPerRow() {
+           
+            if (this.vw > 750) {
+                return 3;
+            }
+
+            if (this.vw > 400) {
+
+            return 2;
+            }
+
+            return 1;
+        },
         rowsCount() {
             return Math.ceil(this.items.length / this.itemsPerRow);
         },
@@ -325,29 +343,33 @@ export default {
                 "grid-template-columns": `repeat(${this.itemsPerRow}, 1fr)`
             };
 
+            const rowHeight = this.vw > 400 ? 'min(23vw, 300px)' : '300px';
+
             if (this.infoBoxIndex === -1) {
                 styles[
                     "grid-template-rows"
-                ] = `repeat(${this.rowsCount}, min(23vw, 300px))`;
+                ] = `repeat(${this.rowsCount}, ${rowHeight})`;
             } else if (this.infoBoxIndex === this.rowsCount) {
                 styles[
                     "grid-template-rows"
-                ] = `repeat(${this.rowsCount}, min(23vw, 300px)) auto`;
+                ] = `repeat(${this.rowsCount}, ${rowHeight}) auto`;
             } else {
                 styles["grid-template-rows"] = `repeat(${
                     this.infoBoxIndex
-                }, min(23vw, 300px)) auto repeat(${this.rowsCount -
-                    this.infoBoxIndex}, min(23vw, 300px))`;
+                }, ${rowHeight}) auto repeat(${this.rowsCount -
+                    this.infoBoxIndex}, ${rowHeight})`;
             }
 
             return styles;
         },
         infoBoxStyles() {
+            
             if (this.infoBoxIndex < 0) {
                 return {};
             }
             return {
-                "grid-row-start": this.infoBoxIndex + 1
+                "grid-row-start": this.infoBoxIndex + 1,
+                "grid-column-end": this.itemsPerRow + 1,
             };
         },
         activeInfo() {
@@ -357,21 +379,23 @@ export default {
             const activeIndex = this.activeIndex;
             return id => ({ active: id === activeIndex });
         },
-        vw() {
-            return document.documentElement.offsetWidth;
-        },
+        
         carouselType() {
             return this.vw > 650 ? "carousel" : "scrollCarousel";
         },
         itemWidth() {
-            const vw = document.documentElement.clientWidth;
-
-            if (vw > 1150) {
+            if (this.vw > 1150) {
                 return 240;
             }
 
             return 160;
         }
+    },
+
+    mounted() {
+        window.addEventListener('resize', () => {
+            this.vw = document.documentElement.offsetWidth;
+        })
     },
 
     components: {
@@ -494,12 +518,16 @@ p {
     cursor: pointer;
     user-select: none;
     position: relative;
+  
     &:hover,
     &.active {
         .overlay {
-            opacity: 1;
+            opacity: 1; 
         }
     }
+
+
+    
 }
 
 .items .info-box {
@@ -507,7 +535,7 @@ p {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-column-start: 1;
-    grid-column-end: 4;
+   
 }
 
 .overlay {
@@ -520,11 +548,13 @@ p {
     opacity: 0;
     transition: 0.5s ease-out;
     padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
 }
 .hover-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+ 
     font-size: 2.8vw;
 }
 
@@ -629,6 +659,15 @@ p {
         top: -15%;
         right: 5%;
         left: unset;
+    }
+}
+
+@media (max-width: 400px) {
+    .items {
+        padding :0;
+    }
+    .hover-text {
+        font-size: min(14vw, 30px);
     }
 }
 </style>
