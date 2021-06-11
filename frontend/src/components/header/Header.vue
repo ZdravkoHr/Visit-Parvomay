@@ -1,5 +1,10 @@
 <template>
     <header class="main-header">
+        <div class="burger-icon" :class="burgerStyle" @click="toggleMobileNav">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
         <div class="grey-box"></div>
         <div class="header-img">
             <div class="overlay"></div>
@@ -17,34 +22,87 @@
         </div>
     </header>
 
-    <nav class="main-nav">
-        <div class="flex menu">
-            <router-link to="home">Начало</router-link>
+    <teleport to="#body">
+        <div class="mobile-nav" v-if="openedMobileNav">
+            <div class="menu">
+                <router-link to="home">Начало</router-link>
 
-            <router-link to="places">Места</router-link>
+                <router-link to="places">Места</router-link>
 
-            <router-link to="restaurants">Ресторанти</router-link>
+                <router-link to="restaurants">Ресторанти</router-link>
 
-            <router-link to="tourism">Туризъм</router-link>
+                <router-link to="tourism">Туризъм</router-link>
 
-            <router-link to="celebrations">Празненства</router-link>
+                <router-link to="celebrations">Празненства</router-link>
 
-            <router-link to="map">Карта</router-link>
+                <router-link to="map">Карта</router-link>
+            </div>
         </div>
-    </nav>
+    </teleport>
 </template>
+
+<script>
+export default {
+    data() {
+        return { openedMobileNav: false };
+    },
+    methods: {
+        toggleMobileNav() {
+            this.openedMobileNav = !this.openedMobileNav;
+        }
+    },
+    computed: {
+        burgerStyle() {
+            return {
+                "close-icon": this.openedMobileNav
+            };
+        }
+    }
+};
+</script>
 
 <style lang="scss" scoped>
 @use '~@/styles/partials/mixins' as *;
-.router-link-active {
-    background: var(--clr-other-green);
-}
 
 .main-header {
     height: 400px;
     min-height: 80vh;
     width: 100%;
     display: flex;
+
+    .burger-icon {
+        position: absolute;
+        z-index: 900;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+        display: none;
+
+        .line {
+            width: 35px;
+            margin-top: 5px;
+            background: #fff;
+            height: 6px;
+            border-radius: 4px;
+            transition: 0.4s ease-in;
+        }
+
+        &.close-icon {
+            position: fixed;
+            .line:nth-child(1) {
+                transform: rotate(45deg);
+                position: relative;
+                top: 10px;
+            }
+
+            .line:nth-child(3) {
+                transform: rotate(-45deg);
+            }
+            .line:nth-child(2) {
+                display: none;
+            }
+        }
+    }
 
     .grey-box {
         width: 20%;
@@ -107,33 +165,30 @@
     }
 }
 
-.main-nav {
-    background: #2e302d;
-    position: sticky;
+.mobile-nav {
     top: 0;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.75);
-    z-index: 999999;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 600;
+    @include overlay(0.8, #009966);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    a {
-        font-family: "Book Antiqua", Ariel;
-        flex: 1;
-        text-align: center;
-        text-decoration: none;
-        color: var(--clr-light-gray2);
-        font-size: 2vw;
-        padding: 2% 1.5%;
-        display: inline-block;
-        transition: ease-in-out 1s;
-
-        &:hover {
-            background: var(--clr-other-green);
-            transition: 0.5s;
-            cursor: pointer;
+    .menu {
+        width: 100%;
+        & > * {
+            display: block;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 3rem;
+            font-weight: bold;
+            border-bottom: 1px solid var(--clr-light-gray1);
         }
-    }
-
-    a + a {
-        border-left: 1px #61655a solid;
     }
 }
 
@@ -141,11 +196,45 @@
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */
 
-@media(max-width: 850px) {
-    .main-header{min-height: 70vh;}
+@media (max-width: 850px) {
+    .main-header {
+        min-height: 70vh;
+    }
 }
 
-@media(max-width: 750px) {
-    .main-header {min-height: 20vh; max-height: 50vh;}
+@media (max-width: 750px) {
+    .main-header {
+        min-height: 20vh;
+        max-height: 50vh;
+
+        .header-img {
+            width: 100%;
+        }
+
+        .header-text {
+            justify-content: center;
+
+            h1 {
+                text-align: center;
+                left: 0;
+                line-height: 1.3;
+                font-size: min(10vw, 50px);
+            }
+        }
+
+        .grey-box {
+            display: none;
+        }
+
+        p {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .main-header .burger-icon {
+        display: block;
+    }
 }
 </style>

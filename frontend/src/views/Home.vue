@@ -1,4 +1,6 @@
 <template>
+    <main-header></main-header>
+    <main-nav></main-nav>
     <info-box :showIcon="false">
         Добре дошли в нашия уебсайт! Тук ще откриете интересни забележителности,
         цветни кътчета, гостоприемни заведения и интересна информация за общи
@@ -92,10 +94,12 @@
     </section>
 </template>
 <script>
+import Header from "@/components/header/Header";
+import Navbar from "@/components/header/Navbar";
 import RestaurantBox from "@/components/home/RestaurantBox";
 import InfoBox from "@/components/others/InfoBox";
 export default {
-    components: { RestaurantBox, InfoBox }
+    components: { RestaurantBox, InfoBox, MainHeader: Header, MainNav: Navbar }
 };
 </script>
 <style lang="scss" scoped>
@@ -158,7 +162,7 @@ export default {
 
 .what-can-you-find {
     background: var(--clr-light-gray1);
-    position:relative;
+    position: relative;
 
     .lens {
         position: absolute;
@@ -245,38 +249,78 @@ export default {
     box-shadow: 0 5px rgba(#1c1e1b, 0.21);
 }
 
-.info-box {font-family: "Book Antiqua", serif;}
-.info-box p {width: 80%;}
+.info-box {
+    font-family: "Book Antiqua", serif;
+}
+.info-box p {
+    width: 80%;
+}
 
 /* ----------------------------------------------------------------------------
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */
 
-@media(max-width: 1150px) {
+@media (max-width: 1150px) {
     .wcyf-container {
         max-width: 900px;
         padding: 2rem;
 
-        .info {width: 35%;}
-        .images{width: 65%;}
+        .info {
+            width: 35%;
+        }
+        .images {
+            width: 65%;
+        }
     }
-    .boxes-holder{max-width: 85%;}
-    .button-wrapper{max-width: 85%;}
+    .boxes-holder {
+        max-width: 85%;
+    }
+    .button-wrapper {
+        max-width: 85%;
+    }
 }
 
-@media(max-width: 850px) {
-    .wcyf-container .images .title{font-size:1rem;}
-    .boxes-holder{max-width:100%; height: 20rem;}
-    .button-wrapper {max-width:100%;}
+@media (max-width: 850px) {
+    .wcyf-container .images .title {
+        font-size: 1rem;
+    }
+    .boxes-holder {
+        max-width: 100%;
+        height: 20rem;
+    }
+    .button-wrapper {
+        max-width: 100%;
+    }
 }
 
-@media(max-width: 750px) {
-    .wcyf-container {justify-content: center; align-items: center; text-align: center; padding: 4rem 2rem;}
-    .wcyf-container .images {display: none;}
-    .wcyf-container .info {width: 100%;}
-    .wcyf-container .info h2 {margin-top: 0;}
-    .boxes-holder {grid-template-columns: repeat(2,1fr); grid-gap: 1% 9%; width: 70%; padding: 1rem 0; height: 35rem;}
-    .boxes-holder .box {height: 15rem;}
-    .button-wrapper {max-width: 70%;}
+@media (max-width: 750px) {
+    .wcyf-container {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+    .wcyf-container .images {
+        display: none;
+    }
+    .wcyf-container .info {
+        width: 100%;
+    }
+    .wcyf-container .info h2 {
+        margin-top: 0;
+    }
+    .boxes-holder {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1% 9%;
+        width: 70%;
+        padding: 1rem 0;
+        height: 35rem;
+    }
+    .boxes-holder .box {
+        height: 15rem;
+    }
+    .button-wrapper {
+        max-width: 70%;
+    }
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <main-header></main-header> <main-nav></main-nav>
     <main class="p-y-4">
         <calendar class="calendar" @changeDate="changeDate"></calendar>
         <section class="info">
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+import Header from "@/components/header/Header";
+import Navbar from "@/components/header/Navbar";
 import Calendar from "@/components/others/Calendar/Calendar.vue";
 
 export default {
@@ -108,9 +111,7 @@ export default {
             celebrations: this.celebrations
         };
     },
-    components: {
-        Calendar
-    }
+    components: { MainHeader: Header, MainNav: Navbar, Calendar }
 };
 </script>
 

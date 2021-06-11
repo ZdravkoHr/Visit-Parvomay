@@ -1,4 +1,5 @@
-<template>
+<template
+    ><main-header></main-header><main-nav></main-nav>
     <section class="flex tourism-container tourism-info">
         <div class="img-container">
             <div class="img"></div>
@@ -21,9 +22,13 @@
     </section>
 </template>
 <script>
+import Header from "@/components/header/Header";
+import Navbar from "@/components/header/Navbar";
 import Dropdown from "@/components/tourism/Dropdown.vue";
 export default {
     components: {
+        MainHeader: Header,
+        MainNav: Navbar,
         Dropdown
     }
 };

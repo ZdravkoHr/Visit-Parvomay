@@ -1,4 +1,5 @@
 <template>
+    <main-header></main-header><main-nav></main-nav>
     <info-box>
         Използвайте стрелките, за да разгледате всички паркове и площадки на
         територията на община Първомай
@@ -66,6 +67,8 @@
     </section>
 </template>
 <script>
+import Header from "@/components/header/Header";
+import Navbar from "@/components/header/Navbar";
 import InfoBox from "@/components/others/InfoBox";
 import PlaceBox from "@/components/places/PlaceBox";
 import Carousel from "@/components/others/Carousel";
@@ -303,9 +306,8 @@ export default {
             this.infoBoxIndex = -1;
             setTimeout(() => {
                 this.infoBoxIndex = rowIndex;
-                console.log('info box index: ', this.infoBoxIndex)
-            })
-          
+                console.log("info box index: ", this.infoBoxIndex);
+            });
         },
         goBack() {
             this.activeIndex =
@@ -321,16 +323,13 @@ export default {
     },
 
     computed: {
-      
         itemsPerRow() {
-           
             if (this.vw > 750) {
                 return 3;
             }
 
             if (this.vw > 400) {
-
-            return 2;
+                return 2;
             }
 
             return 1;
@@ -343,7 +342,7 @@ export default {
                 "grid-template-columns": `repeat(${this.itemsPerRow}, 1fr)`
             };
 
-            const rowHeight = this.vw > 400 ? 'min(23vw, 300px)' : '300px';
+            const rowHeight = this.vw > 400 ? "min(23vw, 300px)" : "300px";
 
             if (this.infoBoxIndex === -1) {
                 styles[
@@ -363,13 +362,12 @@ export default {
             return styles;
         },
         infoBoxStyles() {
-            
             if (this.infoBoxIndex < 0) {
                 return {};
             }
             return {
                 "grid-row-start": this.infoBoxIndex + 1,
-                "grid-column-end": this.itemsPerRow + 1,
+                "grid-column-end": this.itemsPerRow + 1
             };
         },
         activeInfo() {
@@ -379,7 +377,7 @@ export default {
             const activeIndex = this.activeIndex;
             return id => ({ active: id === activeIndex });
         },
-        
+
         carouselType() {
             return this.vw > 650 ? "carousel" : "scrollCarousel";
         },
@@ -393,12 +391,14 @@ export default {
     },
 
     mounted() {
-        window.addEventListener('resize', () => {
+        window.addEventListener("resize", () => {
             this.vw = document.documentElement.offsetWidth;
-        })
+        });
     },
 
     components: {
+        MainHeader: Header,
+        MainNav: Navbar,
         InfoBox,
         PlaceBox,
         Carousel,
@@ -518,16 +518,13 @@ p {
     cursor: pointer;
     user-select: none;
     position: relative;
-  
+
     &:hover,
     &.active {
         .overlay {
-            opacity: 1; 
+            opacity: 1;
         }
     }
-
-
-    
 }
 
 .items .info-box {
@@ -535,7 +532,6 @@ p {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-column-start: 1;
-   
 }
 
 .overlay {
@@ -551,10 +547,8 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-   
 }
 .hover-text {
- 
     font-size: 2.8vw;
 }
 
@@ -664,7 +658,7 @@ p {
 
 @media (max-width: 400px) {
     .items {
-        padding :0;
+        padding: 0;
     }
     .hover-text {
         font-size: min(14vw, 30px);
