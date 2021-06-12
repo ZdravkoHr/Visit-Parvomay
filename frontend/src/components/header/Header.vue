@@ -81,7 +81,7 @@ export default {
         .line {
             width: 35px;
             margin-top: 5px;
-            background: #fff;
+            background: #f6f6f6;
             height: 6px;
             border-radius: 4px;
             transition: 0.4s ease-in;
@@ -171,7 +171,7 @@ export default {
     bottom: 0;
     right: 0;
     z-index: 600;
-    @include overlay(0.8, #009966);
+    @include overlay(0.9, #009966);
     position: fixed;
     display: flex;
     align-items: center;
@@ -181,13 +181,14 @@ export default {
         width: 100%;
         & > * {
             display: block;
-            color: #fff;
+            color: #f6f6f6;
             text-align: center;
             text-decoration: none;
             padding: 0.75rem 1.25rem;
-            font-size: 3rem;
-            font-weight: bold;
-            border-bottom: 1px solid var(--clr-light-gray1);
+            font-family: "Book Antiqua", serif;
+            font-size: 11vw;
+            letter-spacing: 4px;
+            border-bottom: 1px solid #f3f3f378;
         }
     }
 }

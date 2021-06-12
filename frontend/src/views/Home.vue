@@ -323,4 +323,20 @@ export default {
         max-width: 70%;
     }
 }
+
+@media (max-width: 500px) {
+    .restaurant-boxes {padding: 2rem 0;}
+}
+
+@media (max-width: 450px) {
+    .boxes-holder {width: 80%;}
+    .button-wrapper {max-width: 80%;}
+    .what-can-you-find .lens {left: -30%; width: 110%;}
+}
+
+@media (max-width: 350px) {
+    .boxes-holder {grid-template-columns: 1fr; width: 60%; grid-row-gap: 3%; height: 73rem;}
+    .box {height: 20rem;}
+    .button-wrapper {max-width: 80%;}
+}
 </style>

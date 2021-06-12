@@ -129,4 +129,9 @@ export default {
         display: none;
     }
 }
+
+@media (max-width: 500px) {
+    .tourism-container {padding: 1rem 0; height: 118vh;}
+    .tourism-container .img-container::before {left: 0; top: 0; transform: scale(1.1);}
+}
 </style>

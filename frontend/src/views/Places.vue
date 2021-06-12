@@ -656,6 +656,12 @@ p {
     }
 }
 
+@media (max-width: 500px) {
+    .remarkable-places h2 {margin: auto; width: 90%; font-size: 5vw; margin-bottom: 3%;}
+    .nature-places .info, .nature-places .info h2{margin-bottom: 5%;}
+    .nature-places .compass{width: 80%; height: 80%;}
+}
+
 @media (max-width: 400px) {
     .items {
         padding: 0;
