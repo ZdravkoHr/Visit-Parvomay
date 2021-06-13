@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '~@/styles/partials/mixins' as *;
 .tourism-container {
     padding: 3rem 0;
     margin-left: auto;
@@ -130,8 +131,15 @@ export default {
     }
 }
 
-@media (max-width: 500px) {
-    .tourism-container {padding: 1rem 0; height: 118vh;}
-    .tourism-container .img-container::before {left: 0; top: 0; transform: scale(1.1);}
+@include mobile() {
+    .tourism-container {
+        padding: 1rem 0;
+        height: 118vh;
+    }
+    .tourism-container .img-container::before {
+        left: 0;
+        top: 0;
+        transform: scale(1.1);
+    }
 }
 </style>

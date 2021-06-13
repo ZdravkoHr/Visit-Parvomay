@@ -171,6 +171,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@use '~@/styles/partials/mixins' as *;
 .first-section {
     background-color: #f6f6f6;
     padding: 5% 0;
@@ -473,16 +474,42 @@ export default {
     }
 }
 
-@media (max-width: 500px) {
-    .first-section {padding: 8% 0; height: 80vh;}
-    .with-text {width: 50%;}
-    .restaurants-holder {grid-template-columns: 1fr; grid-row-gap: 0; height: 300rem;}
-    .restaurants-holder .box {height: 23rem; width: 70%;}
-    .all-restaurants .title {font-size: 5vw; width: 90%; margin: auto; padding: 3% 0; letter-spacing: 2px;}
+@include mobile() {
+    .first-section {
+        padding: 8% 0;
+        height: 80vh;
+    }
+    .with-text {
+        width: 50%;
+    }
+    .restaurants-holder {
+        grid-template-columns: 1fr;
+        grid-row-gap: 0;
+        height: 300rem;
+    }
+    .restaurants-holder .box {
+        height: 23rem;
+        width: 70%;
+    }
+    .all-restaurants .title {
+        font-size: 5vw;
+        width: 90%;
+        margin: auto;
+        padding: 3% 0;
+        letter-spacing: 2px;
+    }
     .comment-box .top-information div p:nth-child(1),
-    .comment-box .top-information div p:nth-child(2) {margin-left: 5%;}
-    .comment-box .top-information .profile {display: none;}
-    .comment p:last-child {padding-top: 0.5rem;}
-    .comment-box {width: 90%;}
+    .comment-box .top-information div p:nth-child(2) {
+        margin-left: 5%;
+    }
+    .comment-box .top-information .profile {
+        display: none;
+    }
+    .comment p:last-child {
+        padding-top: 0.5rem;
+    }
+    .comment-box {
+        width: 90%;
+    }
 }
 </style>
