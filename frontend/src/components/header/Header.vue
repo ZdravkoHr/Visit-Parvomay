@@ -233,7 +233,7 @@ export default {
     }
 }
 
-@media (max-width: 500px) {
+@include mobile() {
     .main-header .burger-icon {
         display: block;
     }

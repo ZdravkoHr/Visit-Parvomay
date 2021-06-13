@@ -17,6 +17,7 @@
 </template>
 
 <style lang="scss" scoped>
+@use '~@/styles/partials/mixins' as *;
 .router-link-active {
     background: var(--clr-other-green);
 }
@@ -51,7 +52,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@include mobile() {
     .main-nav {
         display: none;
     }
