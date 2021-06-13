@@ -386,7 +386,13 @@ export default {
                 return 240;
             }
 
+            if (this.vw > 500) {
+
             return 160;
+
+            }
+
+            return 140;
         }
     },
 
@@ -439,8 +445,7 @@ export default {
         max-width: 30%;
         z-index: 1;
     }
-
-    .carousel-wrapper {
+.carousel-wrapper {
         flex: 1.5;
         padding-left: 20px;
         max-width: 70%;
@@ -459,7 +464,8 @@ export default {
             padding-right: 20px;
         }
     }
-}
+   
+} 
 
 .remarkable-places {
     padding: 3% 0;
@@ -657,20 +663,21 @@ p {
 }
 
 @include mobile() {
-    .remarkable-places h2 {
-        margin: auto;
-        width: 90%;
-        font-size: 5vw;
-        margin-bottom: 3%;
+    .remarkable-places h2 {margin: auto; width: 90%; font-size: 5vw; margin-bottom: 3%;}
+    .nature-places {
+.info {
+    margin-bottom: 5%;
+    h2 {
+         margin-bottom :5%;
     }
-    .nature-places .info,
-    .nature-places .info h2 {
-        margin-bottom: 5%;
+} .compass{width: 80%; height: 80%;}.carousel-wrapper {
+        padding-left: 0;
     }
-    .nature-places .compass {
-        width: 80%;
-        height: 80%;
     }
+
+    
+   
+    
 }
 
 @media (max-width: 400px) {
