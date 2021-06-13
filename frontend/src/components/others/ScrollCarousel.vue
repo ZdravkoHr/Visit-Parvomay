@@ -23,7 +23,7 @@ export default {
             items: null,
             scrollValue: 0,
             activeIndex: -1,
-            lastBoxWidth: 160
+            lastBoxWidth: 1
         };
     },
 
@@ -35,29 +35,37 @@ export default {
         },
         updateScrollValue(event) {
             const scrollValue = event.target.scrollLeft;
-            this.activeIndex = Math.floor(scrollValue / this.itemWidth) + 1;
+
+
+            if (scrollValue <= 20) {
+                this.activeIndex = 1;
+                return;
+            }
+        
+            this.activeIndex = Math.floor(scrollValue / this.itemWidth) + 2;
         },
+
         scroll() {
             const scrollX = this.items[this.activeIndex].previousElementSibling
-                .offsetLeft;
+                .offsetLeft + 2;
 
             setTimeout(() => this.contentEl.scroll(scrollX, 0));
         },
         addScrollWidth() {
-            const additionalWidth = Math.max(
-                (this.itemsCount - 2) * this.itemWidth -
-                    this.contentEl.scrollLeftMax,
-                0
-            );
+            const maxScroll =  this.contentEl.scrollWidth - this.contentEl.clientWidth;
+            const lastElLeft = this.items[this.items.length - 2].offsetLeft;
 
-            this.lastBoxWidth = additionalWidth;
+            const additionalWidth = lastElLeft - (maxScroll + this.itemWidth);
+
+     
+         this.lastBoxWidth = Math.max(additionalWidth, 0);
         }
     },
 
     computed: {
         contentStyles() {
             return {
-                gridTemplateColumns: `repeat(${this.itemsCount - 1}, ${
+                gridTemplateColumns: `20px repeat(${this.itemsCount - 2}, ${
                     this.itemWidth
                 }px) ${this.lastBoxWidth}px`
             };
@@ -102,6 +110,11 @@ export default {
         transition: 0.3s;
         &:not(.active) {
             transform: scale(0.6);
+            user-select: none;
+
+            @include mobile() {
+                transform: scale(0.8);
+            }
 
             &::before {
                 content: "";
@@ -109,5 +122,7 @@ export default {
             }
         }
     }
+
+   
 }
 </style>

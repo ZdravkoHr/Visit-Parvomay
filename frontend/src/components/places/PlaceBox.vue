@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@use '~@/styles/partials/mixins' as *;
 .image {
     background-size: cover;
     background-position: center;
@@ -48,5 +48,15 @@ export default {
 
 @media(max-width: 1150px) {
     .image {height:25vw;}
+}
+
+@include mobile() {
+    .title {
+        font-size: 1rem;
+    }
+
+    .text {
+        font-size: 0.8rem;
+    }
 }
 </style>
