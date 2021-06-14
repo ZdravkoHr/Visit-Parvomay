@@ -1,8 +1,7 @@
 <template>
     <main-header></main-header><main-nav></main-nav>
     <info-box>
-        Използвайте стрелките, за да разгледате всички паркове и площадки на
-        територията на община Първомай
+        {{ carouselGuide }}
     </info-box>
     <section class="nature-places">
         <div class="compass"></div>
@@ -306,7 +305,6 @@ export default {
             this.infoBoxIndex = -1;
             setTimeout(() => {
                 this.infoBoxIndex = rowIndex;
-                console.log("info box index: ", this.infoBoxIndex);
             });
         },
         goBack() {
@@ -323,12 +321,19 @@ export default {
     },
 
     computed: {
+        carouselGuide() {
+            if (this.vw > 650) {
+                return "Използвайте стрелките, за да разгледате всички паркове и площадки на територията на община Първомай";
+            }
+
+            return "Плъзнете наляво или надясно, за да разгледате всички паркове и площадки на територията на община Първомай";
+        },
         itemsPerRow() {
             if (this.vw > 750) {
                 return 3;
             }
 
-            if (this.vw > 400) {
+            if (this.vw > 500) {
                 return 2;
             }
 
@@ -342,7 +347,7 @@ export default {
                 "grid-template-columns": `repeat(${this.itemsPerRow}, 1fr)`
             };
 
-            const rowHeight = this.vw > 400 ? "min(23vw, 300px)" : "300px";
+            const rowHeight = this.vw > 500 ? "min(23vw, 300px)" : "300px";
 
             if (this.infoBoxIndex === -1) {
                 styles[
@@ -387,9 +392,7 @@ export default {
             }
 
             if (this.vw > 500) {
-
-            return 160;
-
+                return 160;
             }
 
             return 140;
@@ -445,7 +448,7 @@ export default {
         max-width: 30%;
         z-index: 1;
     }
-.carousel-wrapper {
+    .carousel-wrapper {
         flex: 1.5;
         padding-left: 20px;
         max-width: 70%;
@@ -464,8 +467,7 @@ export default {
             padding-right: 20px;
         }
     }
-   
-} 
+}
 
 .remarkable-places {
     padding: 3% 0;
@@ -663,24 +665,28 @@ p {
 }
 
 @include mobile() {
-    .remarkable-places h2 {margin: auto; width: 90%; font-size: 5vw; margin-bottom: 3%;}
+    .remarkable-places h2 {
+        margin: auto;
+        width: 90%;
+        font-size: 5vw;
+        margin-bottom: 3%;
+    }
     .nature-places {
-.info {
-    margin-bottom: 5%;
-    h2 {
-         margin-bottom :5%;
-    }
-} .compass{width: 80%; height: 80%;}.carousel-wrapper {
-        padding-left: 0;
-    }
+        .info {
+            margin-bottom: 5%;
+            h2 {
+                margin-bottom: 5%;
+            }
+        }
+        .compass {
+            width: 80%;
+            height: 80%;
+        }
+        .carousel-wrapper {
+            padding-left: 0;
+        }
     }
 
-    
-   
-    
-}
-
-@media (max-width: 400px) {
     .items {
         padding: 0;
     }
