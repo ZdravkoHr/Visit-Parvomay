@@ -6,7 +6,4 @@
 
 <style lang="scss">
 @import "@/styles/main.scss";
-p {
-    font-size: var(--txt-nm);
-}
 </style>

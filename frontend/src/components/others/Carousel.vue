@@ -1,7 +1,9 @@
 <template>
     <div class="wrapper" ref="wrapper">
-        <div class="content" ref="content" :style="contentStyles">
-            <slot name="items"></slot>
+        <div class="items-wrapper">
+            <div class="content" ref="content" :style="contentStyles">
+                <slot name="items"></slot>
+            </div>
         </div>
 
         <div class="controls">
@@ -17,7 +19,14 @@
 <script>
 import debounce from "lodash/debounce";
 export default {
-    props: ["itemWidth"],
+    emits: ["changeItems"],
+    props: {
+        itemWidth: Number,
+        itemsCount: Number,
+        cycle: {
+            default: false
+        }
+    },
     data() {
         return {
             hasNext: true,
@@ -32,9 +41,16 @@ export default {
     methods: {
         prev: debounce(function() {
             this.currentSlide--;
+            if (this.cycle) {
+                this.$emit("cycle", -1);
+            }
         }, 200),
         next: debounce(function() {
             this.currentSlide++;
+
+            if (this.cycle) {
+                this.$emit("changeItems", 1);
+            }
         }, 200),
 
         initVars() {
@@ -58,15 +74,11 @@ export default {
             return -this.percentStep * this.currentSlide;
         },
         contentStyles() {
-            const count = (this.items || []).length;
-            console.log(count);
             return {
-                gridTemplateColumns: `repeat(${count}, ${this.itemWidth}px)`
+                gridTemplateColumns: `repeat(${this.itemsCount}, ${this.itemWidth}px)`
             };
         },
-        itemsCount() {
-            return this.items?.length || 0;
-        },
+
         fitCount() {
             const boxesCount = Math.ceil(this.contentWidth / this.itemWidth);
             const fitCount = Math.floor(
@@ -117,12 +129,15 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
     position: relative;
+}
+
+.items-wrapper {
     overflow: hidden;
 }
 .content {
     display: grid;
     grid-gap: 23px;
-    color: #fff;
+
     margin: auto;
     padding: 1rem 0;
     margin-left: 0;

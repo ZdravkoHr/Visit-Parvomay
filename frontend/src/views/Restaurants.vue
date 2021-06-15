@@ -131,11 +131,22 @@
         </div>
     </section>
     <section class="comment">
-        <testimonial
-            v-for="t in testimonials"
-            :key="t.id"
-            :info="t"
-        ></testimonial>
+        <div class="carousel-wrapper">
+            <carousel
+                :itemWidth="testimonialWidth"
+                :cycle="true"
+                @changeItems="changeItems"
+                :itemsCount="itemsCount"
+            >
+                <template v-slot:items>
+                    <testimonial
+                        v-for="t in testimonials"
+                        :key="t.id"
+                        :info="t"
+                    ></testimonial>
+                </template>
+            </carousel>
+        </div>
     </section>
 </template>
 <script>
@@ -144,10 +155,14 @@ import Navbar from "@/components/header/Navbar";
 import RestaurantsReview from "@/components/restaurants/RestaurantsReview";
 import BigReview from "@/components/restaurants/BigReview";
 import InfoBox from "@/components/others/InfoBox";
+import Carousel from "@/components/others/Carousel";
 import Testimonial from "@/components/restaurants/Testimonial";
+
 export default {
     data() {
         return {
+            testimonialWidth: 0,
+
             testimonials: [
                 {
                     id: 0,
@@ -161,9 +176,47 @@ export default {
                         content:
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet congue ante, a pretium ligula. Donec sit amet libero vel sapien tempus eleifend ac mattis risus. Nam ut laoreet tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut dignissim egestas, turpis augue cursus leo, eget ultrices dolor est id augue. Nam at placerat mauris. Aenean velit purus, posuere in congue nec, tempus accumsan urna. Aenean efficitur sit amet quam pretium vulputate. Duis porta rutrum viverra. Donec pretium vestibulum arcu vel vulputate. Suspendisse potenti. "
                     }
+                },
+                {
+                    id: 1,
+                    user: {
+                        img: "~@/assets/parvomay/User-Icon.png",
+                        name: "Username 2"
+                    },
+
+                    comment: {
+                        place: "Ресторант Стремон 2",
+                        content:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet congue ante, a pretium ligula. Donec sit amet libero vel sapien tempus eleifend ac mattis risus. Nam ut laoreet tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut dignissim egestas, turpis augue cursus leo, eget ultrices dolor est id augue. Nam at placerat mauris. Aenean velit purus, posuere in congue nec, tempus accumsan urna. Aenean efficitur sit amet quam pretium vulputate. Duis porta rutrum viverra. Donec pretium vestibulum arcu vel vulputate. Suspendisse potenti. "
+                    }
                 }
             ]
         };
+    },
+
+    mounted() {
+        this.testimonialWidth = 900;
+    },
+
+    computed: {
+        itemsCount() {
+            return this.testimonials.length;
+        }
+    },
+
+    methods: {
+        changeItems(direction) {
+            setTimeout(() => {
+                if (direction === -1) {
+                    this.testimonials.unshift(this.testimonials.pop());
+                    return;
+                }
+                console.log(this.testimonials);
+                const a = { ...this.testimonials[0], id: 3 };
+
+                this.testimonials.push(a);
+            }, 600);
+        }
     },
 
     components: {
@@ -172,7 +225,8 @@ export default {
         RestaurantsReview,
         InfoBox,
         BigReview,
-        Testimonial
+        Testimonial,
+        Carousel
     }
 };
 </script>
@@ -267,11 +321,29 @@ export default {
             rgb(0 153 102 / 50%)
         ),
         url("~@/assets/parvomay/whitefood.jpg");
+
     height: 90vh;
     background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .carousel-wrapper {
+        max-width: 900px;
+
+        ::v-deep(.controls) {
+            color: #fff;
+            font-size: 40px;
+            display: flex;
+            justify-content: space-between;
+
+            width: calc(100% + 200px);
+            margin-left: -100px;
+            top: 50%;
+            position: absolute;
+            transform: translateY(-50%);
+        }
+    }
 }
 
 .icon-size {

@@ -14,7 +14,11 @@
         </div>
 
         <div class="carousel-wrapper">
-            <component :is="carouselType" :itemWidth="itemWidth">
+            <component
+                :is="carouselType"
+                :itemWidth="itemWidth"
+                :itemsCount="itemsCount"
+            >
                 <template v-slot:items>
                     <place-box
                         v-for="place in carouselItems"
@@ -327,6 +331,9 @@ export default {
             }
 
             return "Плъзнете наляво или надясно, за да разгледате всички паркове и площадки на територията на община Първомай";
+        },
+        itemsCount() {
+            return this.carouselItems.length;
         },
         itemsPerRow() {
             if (this.vw > 750) {
