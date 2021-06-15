@@ -131,27 +131,11 @@
         </div>
     </section>
     <section class="comment">
-        <div class="comment-box">
-            <div class="top-information">
-                <div class="profile"></div>
-                <div>
-                    <p>Username</p>
-                    <p>Коментар към: <b>Ресторант Стремон</b></p>
-                </div>
-            </div>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                sit amet congue ante, a pretium ligula. Donec sit amet libero
-                vel sapien tempus eleifend ac mattis risus. Nam ut laoreet
-                tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut
-                dignissim egestas, turpis augue cursus leo, eget ultrices dolor
-                est id augue. Nam at placerat mauris. Aenean velit purus,
-                posuere in congue nec, tempus accumsan urna. Aenean efficitur
-                sit amet quam pretium vulputate. Duis porta rutrum viverra.
-                Donec pretium vestibulum arcu vel vulputate. Suspendisse
-                potenti.
-            </p>
-        </div>
+        <testimonial
+            v-for="t in testimonials"
+            :key="t.id"
+            :info="t"
+        ></testimonial>
     </section>
 </template>
 <script>
@@ -160,13 +144,35 @@ import Navbar from "@/components/header/Navbar";
 import RestaurantsReview from "@/components/restaurants/RestaurantsReview";
 import BigReview from "@/components/restaurants/BigReview";
 import InfoBox from "@/components/others/InfoBox";
+import Testimonial from "@/components/restaurants/Testimonial";
 export default {
+    data() {
+        return {
+            testimonials: [
+                {
+                    id: 0,
+                    user: {
+                        img: "~@/assets/parvomay/User-Icon.png",
+                        name: "Username"
+                    },
+
+                    comment: {
+                        place: "Ресторант Стремон",
+                        content:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet congue ante, a pretium ligula. Donec sit amet libero vel sapien tempus eleifend ac mattis risus. Nam ut laoreet tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut dignissim egestas, turpis augue cursus leo, eget ultrices dolor est id augue. Nam at placerat mauris. Aenean velit purus, posuere in congue nec, tempus accumsan urna. Aenean efficitur sit amet quam pretium vulputate. Duis porta rutrum viverra. Donec pretium vestibulum arcu vel vulputate. Suspendisse potenti. "
+                    }
+                }
+            ]
+        };
+    },
+
     components: {
         MainHeader: Header,
         MainNav: Navbar,
         RestaurantsReview,
         InfoBox,
-        BigReview
+        BigReview,
+        Testimonial
     }
 };
 </script>
@@ -266,55 +272,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    p:last-child {
-        padding: 0 1.2rem 1.2rem;
-    }
-}
-
-.comment-box {
-    width: 70%;
-    background: #f6f6f6;
-    border-radius: 10px;
-    .top-information {
-        display: flex;
-        flex-direction: row;
-        height: 20vh;
-        margin-top: -10vh;
-        div {
-            display: flex;
-            justify-content: space-around;
-            flex-direction: column;
-
-            p {
-                margin-left: 6rem;
-                font-size: 2rem;
-                color: #62be9f;
-                padding: 0;
-                &:first-child {
-                    color: #f3f3f3;
-                    font-size: 1.7rem;
-                }
-                b {
-                    color: #609684;
-                }
-                span {
-                    color: #f3f3f3;
-                    margin-bottom: 3%;
-                    font-size: 1.7rem;
-                }
-            }
-        }
-
-        .profile {
-            background-image: url("~@/assets/parvomay/User-Icon.png");
-            background-size: cover;
-            width: 7rem;
-            height: 7rem;
-            position: absolute;
-            border-radius: 50%;
-            margin-left: -3%;
-        }
-    }
 }
 
 .icon-size {
@@ -364,15 +321,6 @@ export default {
             height: 20rem;
         }
     }
-    .comment-box .top-information div p:first-child {
-        font-size: 1.3rem;
-    }
-    .comment-box .top-information div p:nth-child(2) {
-        font-size: 1.6rem;
-    }
-    .comment p {
-        font-size: 0.8rem;
-    }
 }
 
 @media (max-width: 850px) {
@@ -397,19 +345,7 @@ export default {
         grid-gap: 2.5% 5%;
         padding-bottom: 18%;
     }
-    .comment-box .top-information {
-        margin-top: -9vh;
-        height: 17vh;
-        div p:nth-child(2) {
-            font-size: 1.35rem;
-        }
-        div p:nth-child(1) {
-            font-size: 1.1rem;
-        }
-    }
-    .comment p:last-child {
-        padding: 1rem 1.2rem 1.2rem;
-    }
+
     .restaurants-holder .box {
         height: 17rem;
     }
@@ -432,12 +368,6 @@ export default {
     .rating p {
         font-size: 0.8rem;
     }
-    .comment-box .top-information div p:nth-child(2) {
-        font-size: 1.1rem;
-    }
-    .comment-box .top-information div p:nth-child(1) {
-        font-size: 0.9rem;
-    }
 }
 
 @media (max-width: 650px) {
@@ -455,22 +385,6 @@ export default {
         grid-template-columns: repeat(2, 1fr);
         height: 125rem;
         padding: 8% 10%;
-    }
-    .comment-box .top-information div p:nth-child(2) {
-        font-size: 1rem;
-        margin-left: 5rem;
-    }
-    .comment-box .top-information div p:nth-child(1) {
-        font-size: 0.8rem;
-        margin-left: 5rem;
-    }
-    .comment-box .top-information .profile {
-        width: 5rem;
-        height: 5rem;
-    }
-    .comment-box .top-information {
-        margin-top: -4vh;
-        height: 13vh;
     }
 }
 
@@ -497,19 +411,6 @@ export default {
         margin: auto;
         padding: 3% 0;
         letter-spacing: 2px;
-    }
-    .comment-box .top-information div p:nth-child(1),
-    .comment-box .top-information div p:nth-child(2) {
-        margin-left: 5%;
-    }
-    .comment-box .top-information .profile {
-        display: none;
-    }
-    .comment p:last-child {
-        padding-top: 0.5rem;
-    }
-    .comment-box {
-        width: 90%;
     }
 }
 </style>
