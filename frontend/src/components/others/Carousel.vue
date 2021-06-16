@@ -41,16 +41,25 @@ export default {
     methods: {
         prev: debounce(function() {
             this.currentSlide--;
-            if (this.cycle) {
-                this.$emit("cycle", -1);
-            }
+            // if (this.cycle) {
+            //     this.$emit("cycle", -1);
+            // }
         }, 200),
         next: debounce(function() {
             this.currentSlide++;
-
-            if (this.cycle) {
+            if (!this.cycle) return;
+            this.contentEl.addEventListener("transitionend", () => {
+                this.contentEl.style.transition = "none";
                 this.$emit("changeItems", 1);
-            }
+                this.currentSlide = 0;
+                requestAnimationFrame(() => {
+                    this.contentEl.style.transition = "margin 0.4s ease-in";
+                });
+            });
+
+            // if (this.cycle) {
+            //     this.$emit("changeItems", 1);
+            // }
         }, 200),
 
         initVars() {
@@ -96,27 +105,28 @@ export default {
             const margin = +this.contentEl.style.marginLeft.slice(0, -2) || 0;
             let moveBy = this.itemWidth + this.rightSpace;
             const itemsLeft = this.items.length - newValue;
+            if (!this.cycle) {
+                if (itemsLeft === this.fitCount && direction === -1) {
+                    const lastEl = this.contentEl.children[
+                        this.contentEl.children.length - 1
+                    ];
+                    const lastElRight =
+                        lastEl.getBoundingClientRect().right -
+                        this.contentEl.getBoundingClientRect().left;
 
-            if (itemsLeft === this.fitCount && direction === -1) {
-                const lastEl = this.contentEl.children[
-                    this.contentEl.children.length - 1
-                ];
-                const lastElRight =
-                    lastEl.getBoundingClientRect().right -
-                    this.contentEl.getBoundingClientRect().left;
+                    moveBy = lastElRight - this.contentEl.offsetWidth;
+                    this.lastMovedBy = moveBy;
+                    this.hasNext = false;
+                } else {
+                    this.hasNext = true;
+                }
 
-                moveBy = lastElRight - this.contentEl.offsetWidth;
-                this.lastMovedBy = moveBy;
-                this.hasNext = false;
-            } else {
-                this.hasNext = true;
-            }
-
-            if (
-                direction === 1 &&
-                this.items.length - newValue === this.fitCount + 1
-            ) {
-                moveBy = this.lastMovedBy;
+                if (
+                    direction === 1 &&
+                    this.items.length - newValue === this.fitCount + 1
+                ) {
+                    moveBy = this.lastMovedBy;
+                }
             }
 
             this.contentEl.style.marginLeft =

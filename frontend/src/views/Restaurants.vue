@@ -206,16 +206,13 @@ export default {
 
     methods: {
         changeItems(direction) {
-            setTimeout(() => {
-                if (direction === -1) {
-                    this.testimonials.unshift(this.testimonials.pop());
-                    return;
-                }
-                console.log(this.testimonials);
-                const a = { ...this.testimonials[0], id: 3 };
-
-                this.testimonials.push(a);
-            }, 600);
+            if (direction === -1) {
+                this.testimonials.unshift(this.testimonials.pop());
+                return;
+            }
+            console.log(this.testimonials);
+            this.testimonials.push(this.testimonials.shift());
+            console.log(this.testimonials);
         }
     },
 

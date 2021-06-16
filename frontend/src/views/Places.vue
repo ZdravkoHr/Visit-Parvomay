@@ -88,49 +88,49 @@ export default {
                     id: 0,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 1",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 1,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 2",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 2,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 3",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 3,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 4",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 4,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 5",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 5,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 6",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 6,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum",
+                    title: "Lorem Ipsum 7",
                     info: "Lorem ispum is simply dummy"
                 }
             ],
