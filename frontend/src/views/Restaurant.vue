@@ -131,6 +131,7 @@ section {
     h1 {
         font-size: 3.5rem;
         color: #1c1e1b;
+        margin: 0 0 6% 30%;
         span {color: #009966;}
     }
     h3 {
