@@ -666,10 +666,10 @@ p {
 
 @include mobile() {
     .remarkable-places h2 {
-        margin: auto;
+        margin: 5% auto 7%;
         width: 90%;
-        font-size: 5vw;
-        margin-bottom: 3%;
+        font-size: 7vw;
+        letter-spacing: 2px;
     }
     .nature-places {
         .info {
@@ -679,8 +679,9 @@ p {
             }
         }
         .compass {
-            width: 80%;
+            width: 100%;
             height: 80%;
+            left: 8%;
         }
         .carousel-wrapper {
             padding-left: 0;

@@ -121,7 +121,7 @@ export default {
 }
 .button-restaurant {
     padding: 8px;
-    border: 1px solid #dadada8f;
+    border: 1px solid #dadada4d;
     border-radius: 5px;
     text-decoration: none;
 }

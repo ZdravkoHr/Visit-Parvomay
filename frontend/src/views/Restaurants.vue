@@ -208,11 +208,11 @@ export default {
     width: 100%;
 
     .title {
-        color: #f3f3f3;
+        color: #f6f6f6;
         font-size: 22px;
         text-align: center;
         padding: 2% 0;
-        letter-spacing: 4px;
+        letter-spacing: 3px;
         h1 {
             font-weight: 100;
         }
@@ -345,7 +345,7 @@ export default {
 
 @media (max-width: 1150px) {
     .first-section {
-        height: 80vh;
+        max-height: 60vh;
     }
     .with-text {
         width: 30%;
@@ -483,19 +483,20 @@ export default {
         width: 50%;
     }
     .restaurants-holder {
+        padding-top: 10%;
         grid-template-columns: 1fr;
-        grid-row-gap: 0;
-        height: 300rem;
+        grid-row-gap: 0.2%;
+        height: 250rem;
     }
     .restaurants-holder .box {
-        height: 23rem;
+        height: 19rem;
         width: 70%;
     }
     .all-restaurants .title {
         font-size: 5vw;
         width: 90%;
         margin: auto;
-        padding: 3% 0;
+        padding: 6% 0;
         letter-spacing: 2px;
     }
     .comment-box .top-information div p:nth-child(1),

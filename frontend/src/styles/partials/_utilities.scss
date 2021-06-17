@@ -64,10 +64,6 @@
     outline: none;
     border: 0;
     cursor: pointer;
-    transition: ease-in-out 0.5s;
-    &:hover:not([disabled]) {
-        transform: scale(1.2, 1.2);
-    }
 }
 
 .btn {
