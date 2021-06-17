@@ -5,6 +5,7 @@ import Restaurants from "@/views/Restaurants";
 import Tourism from "@/views/Tourism";
 import Celebrations from "@/views/Celebrations";
 import CountyMap from "@/views/Map";
+import Restaurant from "@/views/Restaurant";
 const routes = [
     {
         path: "/",
@@ -36,6 +37,11 @@ const routes = [
         path: "/map",
         name: "map",
         component: CountyMap
+    },
+    {
+        path: "/restaurant",
+        name: "restaurant",
+        component: Restaurant
     }
 ];
 
