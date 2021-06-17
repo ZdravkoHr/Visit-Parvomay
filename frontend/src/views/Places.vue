@@ -14,11 +14,7 @@
         </div>
 
         <div class="carousel-wrapper">
-            <component
-                :is="carouselType"
-                :itemWidth="itemWidth"
-                :itemsCount="itemsCount"
-            >
+            <component :is="carouselType" :itemWidth="itemWidth">
                 <template v-slot:items>
                     <place-box
                         v-for="place in carouselItems"
@@ -88,53 +84,52 @@ export default {
                     id: 0,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 1",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 1,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 2",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 2,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 3",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 3,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 4",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 4,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 5",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 5,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 6",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 },
                 {
                     id: 6,
                     imgSrc:
                         "https://chitalishteparvomay1894.com/wp-content/uploads/2019/01/cropped-zaglavna.png",
-                    title: "Lorem Ipsum 7",
+                    title: "Lorem Ipsum",
                     info: "Lorem ispum is simply dummy"
                 }
             ],
-
             items: [
                 {
                     id: 0,
@@ -323,27 +318,20 @@ export default {
             this.activeIndex = -1;
         }
     },
-
     computed: {
         carouselGuide() {
             if (this.vw > 650) {
                 return "Използвайте стрелките, за да разгледате всички паркове и площадки на територията на община Първомай";
             }
-
             return "Плъзнете наляво или надясно, за да разгледате всички паркове и площадки на територията на община Първомай";
-        },
-        itemsCount() {
-            return this.carouselItems.length;
         },
         itemsPerRow() {
             if (this.vw > 750) {
                 return 3;
             }
-
             if (this.vw > 500) {
                 return 2;
             }
-
             return 1;
         },
         rowsCount() {
@@ -353,9 +341,7 @@ export default {
             const styles = {
                 "grid-template-columns": `repeat(${this.itemsPerRow}, 1fr)`
             };
-
             const rowHeight = this.vw > 500 ? "min(23vw, 300px)" : "300px";
-
             if (this.infoBoxIndex === -1) {
                 styles[
                     "grid-template-rows"
@@ -370,7 +356,6 @@ export default {
                 }, ${rowHeight}) auto repeat(${this.rowsCount -
                     this.infoBoxIndex}, ${rowHeight})`;
             }
-
             return styles;
         },
         infoBoxStyles() {
@@ -389,7 +374,6 @@ export default {
             const activeIndex = this.activeIndex;
             return id => ({ active: id === activeIndex });
         },
-
         carouselType() {
             return this.vw > 650 ? "carousel" : "scrollCarousel";
         },
@@ -397,21 +381,17 @@ export default {
             if (this.vw > 1150) {
                 return 240;
             }
-
             if (this.vw > 500) {
                 return 160;
             }
-
             return 140;
         }
     },
-
     mounted() {
         window.addEventListener("resize", () => {
             this.vw = document.documentElement.offsetWidth;
         });
     },
-
     components: {
         MainHeader: Header,
         MainNav: Navbar,
@@ -426,7 +406,6 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/mixins' as *;
-
 .nature-places {
     background-color: var(--clr-dark-1);
     color: #fff;
@@ -434,7 +413,6 @@ export default {
     padding: 1.5rem 3rem;
     position: relative;
     overflow: hidden;
-
     .compass {
         position: absolute;
         top: -6%;
@@ -446,7 +424,6 @@ export default {
         background: url(../assets/vectors/compass.svg) no-repeat center center;
         background-size: cover;
     }
-
     .info {
         flex: 1;
         display: flex;
@@ -459,23 +436,19 @@ export default {
         flex: 1.5;
         padding-left: 20px;
         max-width: 70%;
-
         ::v-deep(.controls) {
             color: var(--clr-other-green);
             text-align: right;
             font-size: 1.8rem;
-
             & > * {
                 margin-right: 5px;
                 cursor: pointer;
                 padding: 0.1rem;
             }
-
             padding-right: 20px;
         }
     }
 }
-
 .remarkable-places {
     padding: 3% 0;
     position: relative;
@@ -505,7 +478,6 @@ export default {
         }
     }
 }
-
 h2 {
     text-align: center;
     color: var(--clr-other-green);
@@ -513,27 +485,23 @@ h2 {
     letter-spacing: 4px;
     margin: 0 auto 3%;
 }
-
 p {
     font-size: 1.3rem;
     color: #dadada;
     letter-spacing: 1px;
 }
-
 .items {
     display: grid;
     grid-gap: 1rem;
     margin-bottom: 10px;
     padding: 0 3rem;
 }
-
 .col {
     background-size: cover;
     background-position: center;
     cursor: pointer;
     user-select: none;
     position: relative;
-
     &:hover,
     &.active {
         .overlay {
@@ -541,14 +509,12 @@ p {
         }
     }
 }
-
 .items .info-box {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-column-start: 1;
 }
-
 .overlay {
     @include overlay(0.7, #009966);
     color: white;
@@ -566,34 +532,27 @@ p {
 .hover-text {
     font-size: 2.8vw;
 }
-
 .info-enter-from {
     transform: translateY(-100%);
     opacity: 0;
 }
-
 .info-enter-active {
     transition: opacity 2s, transform 0.5s;
 }
-
 .info-enter-to {
     transform: translateY(0);
     opacity: 1;
 }
-
 .info-leave-active {
     transition: 0.5s;
 }
-
 .info-leave-to {
     opacity: 0;
     transform: translateY(-100%);
 }
-
 /* ----------------------------------------------------------------------------
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */
-
 @media (max-width: 1150px) {
     .nature-places {
         padding: 1.5rem 2rem;
@@ -616,7 +575,6 @@ p {
         font-size: 1.1rem;
     }
 }
-
 @media (max-width: 850px) {
     h2 {
         font-size: 2rem;
@@ -625,7 +583,6 @@ p {
         font-size: 1rem;
     }
 }
-
 @media (max-width: 750px) {
     h2 {
         font-size: 1.7rem;
@@ -640,7 +597,6 @@ p {
         max-width: 43%;
     }
 }
-
 @media (max-width: 650px) {
     h2 {
         font-size: 1.7rem;
@@ -670,7 +626,6 @@ p {
         left: unset;
     }
 }
-
 @include mobile() {
     .remarkable-places h2 {
         margin: auto;
@@ -693,7 +648,6 @@ p {
             padding-left: 0;
         }
     }
-
     .items {
         padding: 0;
     }

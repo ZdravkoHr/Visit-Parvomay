@@ -132,11 +132,10 @@
     </section>
     <section class="comment">
         <div class="carousel-wrapper">
-            <carousel
+            <slider
                 :itemWidth="testimonialWidth"
-                :cycle="true"
-                @changeItems="changeItems"
                 :itemsCount="itemsCount"
+                @arrangeItems="arrangeItems"
             >
                 <template v-slot:items>
                     <testimonial
@@ -145,7 +144,7 @@
                         :info="t"
                     ></testimonial>
                 </template>
-            </carousel>
+            </slider>
         </div>
     </section>
 </template>
@@ -155,7 +154,7 @@ import Navbar from "@/components/header/Navbar";
 import RestaurantsReview from "@/components/restaurants/RestaurantsReview";
 import BigReview from "@/components/restaurants/BigReview";
 import InfoBox from "@/components/others/InfoBox";
-import Carousel from "@/components/others/Carousel";
+import Slider from "@/components/others/Slider";
 import Testimonial from "@/components/restaurants/Testimonial";
 
 export default {
@@ -189,6 +188,19 @@ export default {
                         content:
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet congue ante, a pretium ligula. Donec sit amet libero vel sapien tempus eleifend ac mattis risus. Nam ut laoreet tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut dignissim egestas, turpis augue cursus leo, eget ultrices dolor est id augue. Nam at placerat mauris. Aenean velit purus, posuere in congue nec, tempus accumsan urna. Aenean efficitur sit amet quam pretium vulputate. Duis porta rutrum viverra. Donec pretium vestibulum arcu vel vulputate. Suspendisse potenti. "
                     }
+                },
+                {
+                    id: 2,
+                    user: {
+                        img: "~@/assets/parvomay/User-Icon.png",
+                        name: "Username 3"
+                    },
+
+                    comment: {
+                        place: "Ресторант Стремон 3",
+                        content:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet congue ante, a pretium ligula. Donec sit amet libero vel sapien tempus eleifend ac mattis risus. Nam ut laoreet tellus. Donec eget ornare arcu. Praesent scelerisque, tortor ut dignissim egestas, turpis augue cursus leo, eget ultrices dolor est id augue. Nam at placerat mauris. Aenean velit purus, posuere in congue nec, tempus accumsan urna. Aenean efficitur sit amet quam pretium vulputate. Duis porta rutrum viverra. Donec pretium vestibulum arcu vel vulputate. Suspendisse potenti. "
+                    }
                 }
             ]
         };
@@ -205,14 +217,13 @@ export default {
     },
 
     methods: {
-        changeItems(direction) {
-            if (direction === -1) {
-                this.testimonials.unshift(this.testimonials.pop());
+        arrangeItems(direction) {
+            if (direction === 1) {
+                this.testimonials.push(this.testimonials.shift());
                 return;
             }
-            console.log(this.testimonials);
-            this.testimonials.push(this.testimonials.shift());
-            console.log(this.testimonials);
+
+            this.testimonials.unshift(this.testimonials.pop());
         }
     },
 
@@ -223,7 +234,7 @@ export default {
         InfoBox,
         BigReview,
         Testimonial,
-        Carousel
+        Slider
     }
 };
 </script>
@@ -327,18 +338,23 @@ export default {
 
     .carousel-wrapper {
         max-width: 900px;
+        position: relative;
 
         ::v-deep(.controls) {
-            color: #fff;
-            font-size: 40px;
             display: flex;
             justify-content: space-between;
 
-            width: calc(100% + 200px);
-            margin-left: -100px;
+            width: calc(100% + 180px);
+            margin-left: -90px;
             top: 50%;
             position: absolute;
             transform: translateY(-50%);
+
+            & > * {
+                background: transparent;
+                color: #fff;
+                font-size: 40px;
+            }
         }
     }
 }
