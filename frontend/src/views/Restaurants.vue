@@ -339,6 +339,7 @@ export default {
         ),
         url("~@/assets/parvomay/whitefood.jpg");
 
+    overflow: hidden;
     height: 90vh;
     background-size: cover;
     display: flex;
