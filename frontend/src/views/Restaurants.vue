@@ -166,7 +166,10 @@ export default {
                 {
                     id: 0,
                     user: {
-                        img: "~@/assets/parvomay/User-Icon.png",
+                        img: {
+                            path: "parvomay/User-Icon.png",
+                            size: 120
+                        },
                         name: "Username"
                     },
 
@@ -179,7 +182,10 @@ export default {
                 {
                     id: 1,
                     user: {
-                        img: "~@/assets/parvomay/User-Icon.png",
+                        img: {
+                            path: "parvomay/User-Icon.png",
+                            size: 120
+                        },
                         name: "Username 2"
                     },
 
@@ -192,7 +198,10 @@ export default {
                 {
                     id: 2,
                     user: {
-                        img: "~@/assets/parvomay/User-Icon.png",
+                        img: {
+                            path: "parvomay/User-Icon.png",
+                            size: 120
+                        },
                         name: "Username 3"
                     },
 
@@ -337,18 +346,22 @@ export default {
     justify-content: center;
 
     .carousel-wrapper {
-        max-width: 900px;
+        max-width: 990px;
         position: relative;
+
+        ::v-deep(.content) {
+            border-radius: 10px;
+        }
 
         ::v-deep(.controls) {
             display: flex;
             justify-content: space-between;
 
-            width: calc(100% + 180px);
-            margin-left: -90px;
+            width: calc(100% + 135px);
+            margin-left: -45px;
             top: 50%;
             position: absolute;
-            transform: translateY(-50%);
+            transform: translateY(calc(-50% + 45px));
 
             & > * {
                 background: transparent;

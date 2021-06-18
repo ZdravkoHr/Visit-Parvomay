@@ -107,7 +107,6 @@ export default {
     display: flex;
     justify-content: flex-start;
     overflow: hidden;
-    border-radius: 10px;
 }
 
 .slider {
