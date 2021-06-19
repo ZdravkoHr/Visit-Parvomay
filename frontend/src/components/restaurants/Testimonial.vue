@@ -27,16 +27,21 @@ export default {
     props: ["info"],
     computed: {
         commentBoxStyles() {
-            const halfSize = this.info.user.img.size / 2 + "px";
             return {
-                "margin-top": halfSize,
-                "margin-left": halfSize
+                "margin-top": this.halfSize,
+                "margin-left": this.halfSize
             };
         },
+
         userImgStyles() {
             return {
-                width: this.info.user.img.size + "px"
+                width: this.info.user.img.size + "px",
+                transform: `translate(-${this.halfSize}, -${this.halfSize})`
             };
+        },
+
+        halfSize() {
+            return this.info.user.img.size / 2 + "px";
         }
     }
 };
@@ -44,7 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 @use '~@/styles/partials/mixins' as *;
-$img-size: 120px;
 
 .comment {
     background: var(--clr-light-gray1);
@@ -71,7 +75,6 @@ img {
         -139px -123px,
         0px 0px
     );
-    transform: translate(-60px, -60px);
 }
 
 .heading {

@@ -23,8 +23,8 @@
 </template>
 
 <script>
-//const NEXT = 1;
-//const PREV = -1;
+const NEXT = 1;
+const PREV = -1;
 
 export default {
     props: ["itemsCount", "itemWidth"],
@@ -32,7 +32,7 @@ export default {
 
     data() {
         return {
-            direction: 1,
+            direction: NEXT,
             dontArrange: false
         };
     },
@@ -47,30 +47,21 @@ export default {
 
     methods: {
         prev() {
-            if (this.direction === 1) {
-                this.$emit("arrangeItems", 1);
-                this.direction = -1;
+            if (this.direction === NEXT) {
+                this.$emit("arrangeItems", NEXT);
+                this.direction = PREV;
             }
 
-            this.dontArrange = this.direction === 1;
+            this.dontArrange = this.direction === NEXT;
             this.$refs.content.style.justifyContent = "flex-end";
-            this.$refs.slider.style.transform = `translateX(${100 / 3}%)`;
-
-            //        // this.$emit('arrangeItems', this.direction);
-            //         this.$refs.slider.style.transition = "none";
-            //         this.$refs.slider.style.transform = "translateX(-100%)";
-            //          requestAnimationFrame(() => {
-            //                 requestAnimationFrame(() => {
-            //             this.$refs.slider.style.transition = "transform 0.4s ease-in";
-            //  this.$refs.slider.style.transform = "translateX(0)";
-            //                 })
-
-            //             });
+            this.$refs.slider.style.transform = `translateX(${100 /
+                this.itemsCount}%)`;
         },
         next() {
             this.direction = 1;
             this.$refs.content.style.justifyContent = "flex-start";
-            this.$refs.slider.style.transform = `translateX(-${100 / 3}%)`;
+            this.$refs.slider.style.transform = `translateX(-${100 /
+                this.itemsCount}%)`;
         },
 
         arrangeItems() {
@@ -85,17 +76,6 @@ export default {
                         "transform 0.4s ease-in";
                 });
             });
-
-            // this.$nextTick(() => {
-            //     this.$refs.slider.style.transition = "none";
-            //     this.$refs.slider.style.transform = "translateX(0)";
-            //     requestAnimationFrame(() => {
-            //         requestAnimationFrame(() => {
-            //             this.$refs.slider.style.transition =
-            //                 "transform 0.4s ease-in";
-            //         });
-            //     });
-            // });
         }
     }
 };
