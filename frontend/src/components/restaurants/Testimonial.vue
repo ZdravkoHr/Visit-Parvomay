@@ -46,10 +46,6 @@ export default {
 @use '~@/styles/partials/mixins' as *;
 $img-size: 120px;
 
-.comment-box {
-    z-index: 5;
-}
-
 .comment {
     background: var(--clr-light-gray1);
     border-radius: 10px;

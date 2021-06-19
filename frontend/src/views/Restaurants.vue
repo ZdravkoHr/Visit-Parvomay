@@ -351,13 +351,15 @@ export default {
         position: relative;
 
         ::v-deep(.content) {
+            position: relative;
+            z-index: 5;
             border-radius: 10px;
         }
 
         ::v-deep(.controls) {
             display: flex;
             justify-content: space-between;
-            z-index: 4;
+
             width: calc(100% + 135px);
             margin-left: -45px;
             top: 50%;

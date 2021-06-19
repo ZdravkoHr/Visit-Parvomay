@@ -1,5 +1,14 @@
 <template>
     <div class="wrapper" ref="wrapper">
+        <div class="controls">
+            <button @click="prev" class="btn">
+                <i class="far fa-arrow-alt-circle-left "></i>
+            </button>
+            <button @click="next" class="btn">
+                <i class="far fa-arrow-alt-circle-right  "></i>
+            </button>
+        </div>
+
         <div class="content" ref="content">
             <div
                 class="slider"
@@ -9,15 +18,6 @@
             >
                 <slot name="items"></slot>
             </div>
-        </div>
-
-        <div class="controls">
-            <button @click="prev" class="btn">
-                <i class="far fa-arrow-alt-circle-left "></i>
-            </button>
-            <button @click="next" class="btn">
-                <i class="far fa-arrow-alt-circle-right  "></i>
-            </button>
         </div>
     </div>
 </template>
