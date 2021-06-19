@@ -40,7 +40,8 @@ export default {
     computed: {
         sliderStyles() {
             return {
-                gridTemplateColumns: `repeat(${this.itemsCount}, ${this.itemWidth}px)`
+                gridTemplateColumns: `repeat(${this.itemsCount}, ${this.itemWidth}px)`,
+                width: this.itemsCount * 100 + "%"
             };
         }
     },
@@ -93,7 +94,6 @@ export default {
     display: flex;
     flex-shrink: 0;
     transition: transform 0.4s ease-in;
-    width: 300%;
 
     & > * {
         flex-basis: 900px;
