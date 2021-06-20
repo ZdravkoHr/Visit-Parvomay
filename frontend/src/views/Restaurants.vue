@@ -42,7 +42,7 @@
         <div class="title">
             <h1>Всички ресторанти и заведения:</h1>
         </div>
-        <InfoBox>Моля, кликнете върху някоя кутийка</InfoBox>
+        <info-box>Моля, кликнете върху някоя кутийка</info-box>
         <div class="restaurants-holder">
             <restaurantsReview class="">
                 <template v-slot:icons>
@@ -133,7 +133,7 @@
     <section class="comment">
         <div class="carousel-wrapper">
             <slider
-                :itemWidth="testimonialWidth"
+                :itemWidth="900"
                 :itemsCount="itemsCount"
                 @arrangeItems="arrangeItems"
             >
@@ -160,8 +160,7 @@ import Testimonial from "@/components/restaurants/Testimonial";
 export default {
     data() {
         return {
-            testimonialWidth: 0,
-
+            vw: document.documentElement.offsetWidth,
             testimonials: [
                 {
                     id: 0,
@@ -231,13 +230,17 @@ export default {
         };
     },
 
-    mounted() {
-        this.testimonialWidth = 900;
-    },
-
     computed: {
         itemsCount() {
             return this.testimonials.length;
+        },
+
+        testimonialWidth() {
+            if (this.vw > 1200) {
+                return 900;
+            }
+
+            return 800;
         }
     },
 
@@ -250,6 +253,11 @@ export default {
 
             this.testimonials.unshift(this.testimonials.pop());
         }
+    },
+    mounted() {
+        window.addEventListener("resize", () => {
+            this.vw = document.documentElement.offsetWidth;
+        });
     },
 
     components: {
@@ -356,20 +364,26 @@ export default {
         url("~@/assets/parvomay/whitefood.jpg");
 
     overflow: hidden;
-    height: 90vh;
+    height: 100vh;
     background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .carousel-wrapper {
-        max-width: 990px;
+        width: clamp(400px, 75vw, 900px);
         position: relative;
+        margin-left: -50px;
 
         ::v-deep(.content) {
             position: relative;
             z-index: 5;
             border-radius: 10px;
+            margin-left: 10px;
+
+            @media (max-width: 400px) {
+                margin-left: 0;
+            }
         }
 
         ::v-deep(.controls) {
@@ -502,6 +516,19 @@ export default {
         grid-template-columns: repeat(2, 1fr);
         height: 125rem;
         padding: 8% 10%;
+    }
+
+    .comment .carousel-wrapper ::v-deep(.controls) {
+        position: relative;
+        top: unset;
+        justify-content: flex-end;
+        width: 100%;
+        margin: 0;
+
+        & > * {
+            margin-left: 5px;
+            padding: 0;
+        }
     }
 }
 

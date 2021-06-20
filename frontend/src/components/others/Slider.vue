@@ -1,14 +1,5 @@
 <template>
     <div class="wrapper" ref="wrapper">
-        <div class="controls">
-            <button @click="prev" class="btn">
-                <i class="far fa-arrow-alt-circle-left "></i>
-            </button>
-            <button @click="next" class="btn">
-                <i class="far fa-arrow-alt-circle-right  "></i>
-            </button>
-        </div>
-
         <div class="content" ref="content">
             <div
                 class="slider"
@@ -18,6 +9,15 @@
             >
                 <slot name="items"></slot>
             </div>
+        </div>
+
+        <div class="controls">
+            <button @click="prev" class="btn">
+                <i class="far fa-arrow-alt-circle-left "></i>
+            </button>
+            <button @click="next" class="btn">
+                <i class="far fa-arrow-alt-circle-right  "></i>
+            </button>
         </div>
     </div>
 </template>
@@ -40,7 +40,6 @@ export default {
     computed: {
         sliderStyles() {
             return {
-                gridTemplateColumns: `repeat(${this.itemsCount}, ${this.itemWidth}px)`,
                 width: this.itemsCount * 100 + "%"
             };
         }
@@ -77,6 +76,20 @@ export default {
                         "transform 0.4s ease-in";
                 });
             });
+        },
+        updateItemsWidth(width) {
+            const items = this.$refs.content.querySelectorAll(".slider > *");
+            items.forEach(item => (item.style.flexBasis = width + "px"));
+        }
+    },
+
+    mounted() {
+        this.updateItemsWidth(this.itemWidth);
+    },
+
+    watch: {
+        itemWidth(newValue) {
+            this.updateItemsWidth(newValue);
         }
     }
 };
