@@ -87,7 +87,7 @@
         </div>
 
         <div class="button-wrapper">
-            <router-link class="button-restaurant btn-primary" to="restaurants">
+            <router-link class="btn-primary button-restaurant" to="restaurants">
                 Към ресторанта &gt; &gt;
             </router-link>
         </div>
