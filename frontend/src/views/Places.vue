@@ -37,7 +37,7 @@
         </h2>
 
         <div class="items" :style="rowStyles" :ref="items">
-            <transition name="info">
+            <transition name="slide-in-out">
                 <place-infobox
                     class="info-box"
                     :info="activeInfo"
@@ -532,24 +532,7 @@ p {
 .hover-text {
     font-size: 2.8vw;
 }
-.info-enter-from {
-    transform: translateY(-100%);
-    opacity: 0;
-}
-.info-enter-active {
-    transition: opacity 2s, transform 0.5s;
-}
-.info-enter-to {
-    transform: translateY(0);
-    opacity: 1;
-}
-.info-leave-active {
-    transition: 0.5s;
-}
-.info-leave-to {
-    opacity: 0;
-    transform: translateY(-100%);
-}
+
 /* ----------------------------------------------------------------------------
  -------------------------------- RESPONSIVE ----------------------------------
  ------------------------------------------------------------------------------ */

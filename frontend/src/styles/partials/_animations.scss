@@ -1,0 +1,23 @@
+.slide-in-enter-from,
+.slide-in-out-enter-from {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+.slide-in-enter-active,
+.slide-in-out-enter-active {
+    transition: opacity 2s, transform 0.5s;
+}
+.slide-in-enter-to,
+.slide-in-out-enter-to {
+    transform: translateY(0);
+    opacity: 1;
+}
+.slide-out-leave-active,
+.slide-in-out-leave-active {
+    transition: 0.5s;
+}
+.slide-out-leave-to,
+.slide-in-out-leave-to {
+    opacity: 0;
+    transform: translateY(-100%);
+}

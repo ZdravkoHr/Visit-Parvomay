@@ -18,7 +18,7 @@
         </div>
     </section>
     <section class="dropdowns">
-        <dropdown> </dropdown>
+        <dropdown> </dropdown> <dropdown> </dropdown> <dropdown> </dropdown>
     </section>
 </template>
 <script>
@@ -90,6 +90,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     max-width: 1300px;
+    margin-bottom: 2rem;
 }
 
 /* ----------------------------------------------------------------------------
